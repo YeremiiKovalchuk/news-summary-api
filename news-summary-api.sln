@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsSummary.Web", "news-summary-api\NewsSummary.Web.csproj", "{CD5B65A2-12BF-46A1-989E-3A54BBB346D6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B40D5413-0957-4F2A-A312-7DDEC391BE77} = {B40D5413-0957-4F2A-A312-7DDEC391BE77}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsSummary.Core", "NewsSummary.Core\NewsSummary.Core.csproj", "{B40D5413-0957-4F2A-A312-7DDEC391BE77}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CD5B65A2-12BF-46A1-989E-3A54BBB346D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD5B65A2-12BF-46A1-989E-3A54BBB346D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD5B65A2-12BF-46A1-989E-3A54BBB346D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD5B65A2-12BF-46A1-989E-3A54BBB346D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B40D5413-0957-4F2A-A312-7DDEC391BE77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B40D5413-0957-4F2A-A312-7DDEC391BE77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B40D5413-0957-4F2A-A312-7DDEC391BE77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B40D5413-0957-4F2A-A312-7DDEC391BE77}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BE0142DE-DE03-4024-AC65-AFE1F2820BB6}
+	EndGlobalSection
+EndGlobal
