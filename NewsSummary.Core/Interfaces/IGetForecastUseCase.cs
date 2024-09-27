@@ -6,5 +6,5 @@ namespace NewsSummary.Core.Interfaces;
 
 public interface IGetForecastUseCase
 {
-    public Task<Result<ForecastResponseDTO>> Get(ForecastRequestSettings request);
+    public Task<Result<ForecastResponseDTO>> Execute(ForecastRequestSettings settings);
 }

@@ -2,9 +2,9 @@
 
 public class ForecastRequestSettings
 {
-    public decimal Latitude { get; init; }
+    public double Latitude { get; init; }
 
-    public decimal Longitude { get; init; }
+    public double Longitude { get; init; }
 
     public const string Units = "metric";
 

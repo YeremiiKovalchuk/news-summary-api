@@ -3,12 +3,22 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsSummary.Web", "news-summary-api\NewsSummary.Web.csproj", "{CD5B65A2-12BF-46A1-989E-3A54BBB346D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsSummary.Web", "NewsSummary.Web\NewsSummary.Web.csproj", "{CD5B65A2-12BF-46A1-989E-3A54BBB346D6}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B40D5413-0957-4F2A-A312-7DDEC391BE77} = {B40D5413-0957-4F2A-A312-7DDEC391BE77}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsSummary.Core", "NewsSummary.Core\NewsSummary.Core.csproj", "{B40D5413-0957-4F2A-A312-7DDEC391BE77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsSummary.Core", "NewsSummary.Core\NewsSummary.Core.csproj", "{B40D5413-0957-4F2A-A312-7DDEC391BE77}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsSummary.Infrastructure", "NewsSummary.Infrastructure\NewsSummary.Infrastructure.csproj", "{09958952-95BA-49DF-AF5B-67C0CAE9C72E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B40D5413-0957-4F2A-A312-7DDEC391BE77} = {B40D5413-0957-4F2A-A312-7DDEC391BE77}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{37626236-6461-4130-9D2E-2C020F3162AA}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +34,10 @@ Global
 		{B40D5413-0957-4F2A-A312-7DDEC391BE77}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B40D5413-0957-4F2A-A312-7DDEC391BE77}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B40D5413-0957-4F2A-A312-7DDEC391BE77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09958952-95BA-49DF-AF5B-67C0CAE9C72E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09958952-95BA-49DF-AF5B-67C0CAE9C72E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09958952-95BA-49DF-AF5B-67C0CAE9C72E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09958952-95BA-49DF-AF5B-67C0CAE9C72E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

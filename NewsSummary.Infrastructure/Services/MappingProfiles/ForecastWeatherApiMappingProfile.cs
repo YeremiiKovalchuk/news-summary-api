@@ -2,9 +2,9 @@
 using NewsSummary.Core.Models.Forecast.WeatherAPI;
 using NewsSummary.Core.Models.Forecast;
 
-namespace NewsSummary.Core.Utils.MappingProfiles;
+namespace NewsSummary.Infrastructure.Services.MappingProfiles;
 
-public class ForecastWeatherApiMappingProfile: Profile
+public class ForecastWeatherApiMappingProfile : Profile
 {
     public ForecastWeatherApiMappingProfile()
     {
