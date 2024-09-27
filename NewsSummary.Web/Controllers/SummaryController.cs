@@ -26,12 +26,11 @@ namespace NewsSummary.Web.Controllers
         [HttpGet("GetForecast")]
         [ProducesResponseType(typeof(ForecastResponseDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(void),StatusCodes.Status418ImATeapot)]
-        public async Task<IActionResult> GetForecast(double lat = 38.57, double lon = 0.07, string language = "en")
+        public async Task<IActionResult> GetForecast(string city = "Albir", string language = "en")
         {
             var settings = new ForecastRequestSettings()
             {
-                Latitude = lat,
-                Longitude = lon,
+                City = city,
                 Lang = language,
             };
 

@@ -25,7 +25,7 @@ public class WeatherApiForecastClient : IForecastClient
     
     public async Task<Result<ForecastRequestDTO>> GetForecast(ForecastRequestSettings settings)
     {
-        var requestString = $"https://api.openweathermap.org/data/2.5/forecast?lat={(settings.Latitude).SetCommonFormat()}&lon={(settings.Longitude).SetCommonFormat()}&lang={settings.Lang}&units=metric&appid={this._apiKeyUseCase.Execute("WeatherApi")}";
+        var requestString = $"https://api.openweathermap.org/data/2.5/forecast?&q={settings.City}&lang={settings.Lang}&units=metric&appid={this._apiKeyUseCase.Execute("WeatherApi")}";
         _logger.LogInformation("Requesting weather forecast from WeatherApi.");
        
         var response = await _httpClient.GetAsync(new Uri(requestString));

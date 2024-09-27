@@ -15,4 +15,7 @@ public static class WebConstants
         options.PropertyNameCaseInsensitive = CommonJsonSerializerOptions.PropertyNameCaseInsensitive;
         options.PropertyNamingPolicy = CommonJsonSerializerOptions.PropertyNamingPolicy;
     };
+
+    public const string ForecastCacheKey = "Forecast";
+    public const string NewsCacheKey = "News";
 }

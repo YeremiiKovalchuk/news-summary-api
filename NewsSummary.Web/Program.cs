@@ -1,9 +1,9 @@
 using NewsSummary.Core.Interfaces;
 using NewsSummary.Core.Services.UseCases;
-using NewsSummary.Infrastructure.Services;
 using NewsSummary.Core.Extensions;
 using NewsSummary.Core.Constants;
 using NewsSummary.Core.Models;
+using NewsSummary.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +19,7 @@ builder.Services.AddSwaggerGen(); //web
 builder.Services.AddCommonHttpClients();
 builder.Services.AddCommonUseCases();
 
-builder.Services.AddCommonCaching();
+builder.Services.AddCommonCaching(builder.Configuration);
 builder.Services.AddCommonAutoMappers();
 
 builder.Configuration.AddUserSecrets("c0d704df-fc2d-4a0b-b3a5-e17706fcf769");

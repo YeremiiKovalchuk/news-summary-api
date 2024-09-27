@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NewsSummary.Core.Interfaces;
+using NewsSummary.Infrastructure.Extensions;
 using NewsSummary.Infrastructure.Models;
 
 namespace NewsSummary.Infrastructure.Services;
@@ -17,13 +17,15 @@ public class UniversalCache : IUniversalCache
         this._distributedCache = distributedCache;
     }
 
-    public Task<TValue?> GetValue<TValue>(string key)
+    public async Task<TValue?> GetValueAsync<TValue>(string key)
     {
-        throw new NotImplementedException();
+        this._logger.LogInformation($"Getting {key} from cache.");
+        return await this._distributedCache.GetRecordAsync<TValue>(key);
     }
 
-    public Task SetValue<TValue>(string key, TValue value)
+    public async Task SetValueAsync<TValue>(string key, TValue value)
     {
-        throw new NotImplementedException();
+        this._logger.LogInformation($"Setting {key} in cache.");
+        await this._distributedCache.SetRecordAsync<TValue>(key, value);
     }
 }

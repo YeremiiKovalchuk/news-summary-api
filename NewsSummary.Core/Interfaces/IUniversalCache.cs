@@ -2,6 +2,6 @@
 
 public interface IUniversalCache
 {
-    public Task<TValue?> GetValue<TValue>(string key);
-    public Task SetValue<TValue>(string key, TValue value);
+    public Task<TValue?> GetValueAsync<TValue>(string key);
+    public Task SetValueAsync<TValue>(string key, TValue value);
 }
