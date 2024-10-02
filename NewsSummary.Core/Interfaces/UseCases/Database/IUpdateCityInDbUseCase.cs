@@ -4,5 +4,5 @@ namespace NewsSummary.Core.Interfaces.UseCases.Database;
 
 public interface IUpdateCityInDbUseCase
 {
-    void Execute(CityDto cityInfo);
+    public bool Execute(CityDto cityInfo);
 }

@@ -24,8 +24,4 @@
     <ProjectReference Include="..\NewsSummary.Core\NewsSummary.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\Generated\" />
-  </ItemGroup>
-
 </Project>

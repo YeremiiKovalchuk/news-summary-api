@@ -1,145 +1,151 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NewsSummary.Core.Interfaces.UseCases.Database;
-using NewsSummary.Core.Models.Forecast;
+using NewsSummary.Core.Models;
 using NewsSummary.Web.Controllers;
 using Xunit;
-using System;
 using System.Collections.Generic;
-using NewsSummary.Core.Models;
+
+namespace NewsSummary.Test.Unit;
 
 public class DatabaseControllerTests
 {
     private readonly DatabaseController _controller;
-    private readonly Mock<IGetAllDatabaseEntriesUseCase> _getAllDatabaseEntriesUseCaseMock;
-    private readonly Mock<IAddCityToDbUseCase> _addCityToDbUseCaseMock;
-    private readonly Mock<IRemoveCityFromDbUseCase> _removeCityFromDbUseCaseMock;
-    private readonly Mock<IUpdateCityInDbUseCase> _updateCityInDbUseCaseMock;
+    private readonly Mock<IGetAllDatabaseEntriesUseCase> _mockGetAllDatabaseEntriesUseCase;
+    private readonly Mock<IAddCityToDbUseCase> _mockAddCityToDbUseCase;
+    private readonly Mock<IRemoveCityFromDbUseCase> _mockRemoveCityFromDbUseCase;
+    private readonly Mock<IUpdateCityInDbUseCase> _mockUpdateCityInDbUseCase;
 
     public DatabaseControllerTests()
     {
-        _getAllDatabaseEntriesUseCaseMock = new Mock<IGetAllDatabaseEntriesUseCase>();
-        _addCityToDbUseCaseMock = new Mock<IAddCityToDbUseCase>();
-        _removeCityFromDbUseCaseMock = new Mock<IRemoveCityFromDbUseCase>();
-        _updateCityInDbUseCaseMock = new Mock<IUpdateCityInDbUseCase>();
+        _mockGetAllDatabaseEntriesUseCase = new Mock<IGetAllDatabaseEntriesUseCase>();
+        _mockAddCityToDbUseCase = new Mock<IAddCityToDbUseCase>();
+        _mockRemoveCityFromDbUseCase = new Mock<IRemoveCityFromDbUseCase>();
+        _mockUpdateCityInDbUseCase = new Mock<IUpdateCityInDbUseCase>();
 
         _controller = new DatabaseController(
-            _getAllDatabaseEntriesUseCaseMock.Object,
-            _addCityToDbUseCaseMock.Object,
-            _removeCityFromDbUseCaseMock.Object,
-            _updateCityInDbUseCaseMock.Object);
+            _mockGetAllDatabaseEntriesUseCase.Object,
+            _mockAddCityToDbUseCase.Object,
+            _mockRemoveCityFromDbUseCase.Object,
+            _mockUpdateCityInDbUseCase.Object
+        );
     }
 
     [Fact]
-    public void GetAllCities_ReturnsOk_WhenEntriesExist()
+    public void GetAllCities_ShouldReturnOk_WhenCitiesExist()
     {
         // Arrange
-        var cities = new List<CityDto> { new CityDto { CityName = "City1" } };
-        _getAllDatabaseEntriesUseCaseMock.Setup(x => x.Execute()).Returns(cities);
+        var cityList = new List<CityDto>
+    {
+        new CityDto { CityName = "City1" },
+        new CityDto { CityName = "City2" }
+    };
+        _mockGetAllDatabaseEntriesUseCase.Setup(x => x.Execute()).Returns(cityList);
 
         // Act
         var result = _controller.GetAllCities();
 
         // Assert
         var okResult = Assert.IsType<OkObjectResult>(result);
-        Assert.Equal(200, okResult.StatusCode);
-        Assert.Equal(cities, okResult.Value);
+        var returnValue = Assert.IsType<List<CityDto>>(okResult.Value);
+        Assert.Equal(2, returnValue.Count);
     }
 
     [Fact]
-    public void GetAllCities_ReturnsNoContent_WhenNoEntriesExist()
+    public void GetAllCities_ShouldReturnNoContent_WhenNoCitiesExist()
     {
         // Arrange
-        _getAllDatabaseEntriesUseCaseMock.Setup(x => x.Execute()).Returns((List<CityDto>)null);
+        _mockGetAllDatabaseEntriesUseCase.Setup(x => x.Execute()).Returns((List<CityDto>)null);
 
         // Act
         var result = _controller.GetAllCities();
 
         // Assert
-        var noContentResult = Assert.IsType<NoContentResult>(result);
-        Assert.Equal(204, noContentResult.StatusCode);
+        Assert.IsType<NoContentResult>(result);
     }
 
     [Fact]
-    public void AddNewCity_ReturnsOk_WhenCityAddedSuccessfully()
+    public void AddNewCity_ShouldReturnOk_WhenCityIsAdded()
     {
         // Arrange
-        var city = new CityDto { CityName = "New City" };
+        var cityDto = new CityDto { CityName = "City1" };
+        _mockAddCityToDbUseCase.Setup(x => x.Execute(cityDto)).Returns(true);
 
         // Act
-        var result = _controller.AddNewCity(city);
+        var result = _controller.AddNewCity(cityDto);
 
         // Assert
-        var okResult = Assert.IsType<OkResult>(result);
-        Assert.Equal(200, okResult.StatusCode);
+        Assert.IsType<OkResult>(result);
     }
 
     [Fact]
-    public void AddNewCity_ReturnsTeapot_WhenExceptionThrown()
+    public void AddNewCity_ShouldReturnNoContent_WhenCityIsNotAdded()
     {
         // Arrange
-        var city = new CityDto { CityName = "New City" };
-        _addCityToDbUseCaseMock.Setup(x => x.Execute(It.IsAny<CityDto>())).Throws(new Exception());
+        var cityDto = new CityDto { CityName = "City1" };
+        _mockAddCityToDbUseCase.Setup(x => x.Execute(cityDto)).Returns(false);
 
         // Act
-        var result = _controller.AddNewCity(city);
+        var result = _controller.AddNewCity(cityDto);
 
         // Assert
-        var teapotResult = Assert.IsType<StatusCodeResult>(result);
-        Assert.Equal(418, teapotResult.StatusCode);
+        Assert.IsType<NoContentResult>(result);
     }
 
     [Fact]
-    public void DeleteCity_ReturnsOk_WhenCityDeletedSuccessfully()
-    {
-        // Act
-        var result = _controller.DeleteCity("CityName");
-
-        // Assert
-        var okResult = Assert.IsType<OkResult>(result);
-        Assert.Equal(200, okResult.StatusCode);
-    }
-
-    [Fact]
-    public void DeleteCity_ReturnsTeapot_WhenExceptionThrown()
+    public void DeleteCity_ShouldReturnOk_WhenCityIsDeleted()
     {
         // Arrange
-        _removeCityFromDbUseCaseMock.Setup(x => x.Execute(It.IsAny<string>())).Throws(new Exception());
+        var cityName = "City1";
+        _mockRemoveCityFromDbUseCase.Setup(x => x.Execute(cityName)).Returns(true);
 
         // Act
-        var result = _controller.DeleteCity("CityName");
+        var result = _controller.DeleteCity(cityName);
 
         // Assert
-        var teapotResult = Assert.IsType<StatusCodeResult>(result);
-        Assert.Equal(418, teapotResult.StatusCode);
+        Assert.IsType<OkResult>(result);
     }
 
     [Fact]
-    public void UpdateCity_ReturnsOk_WhenCityUpdatedSuccessfully()
+    public void DeleteCity_ShouldReturnNoContent_WhenCityIsNotDeleted()
     {
         // Arrange
-        var city = new CityDto { CityName = "Updated City" };
+        var cityName = "City1";
+        _mockRemoveCityFromDbUseCase.Setup(x => x.Execute(cityName)).Returns(false);
 
         // Act
-        var result = _controller.UpdateCity(city);
+        var result = _controller.DeleteCity(cityName);
 
         // Assert
-        var okResult = Assert.IsType<OkResult>(result);
-        Assert.Equal(200, okResult.StatusCode);
+        Assert.IsType<NoContentResult>(result);
     }
 
     [Fact]
-    public void UpdateCity_ReturnsTeapot_WhenExceptionThrown()
+    public void UpdateCity_ShouldReturnOk_WhenCityIsUpdated()
     {
         // Arrange
-        var city = new CityDto { CityName = "Updated City" };
-        _updateCityInDbUseCaseMock.Setup(x => x.Execute(It.IsAny<CityDto>())).Throws(new Exception());
+        var cityDto = new CityDto { CityName = "City1" };
+        _mockUpdateCityInDbUseCase.Setup(x => x.Execute(cityDto)).Returns(true);
 
         // Act
-        var result = _controller.UpdateCity(city);
+        var result = _controller.UpdateCity(cityDto);
 
         // Assert
-        var teapotResult = Assert.IsType<StatusCodeResult>(result);
-        Assert.Equal(418, teapotResult.StatusCode);
+        Assert.IsType<OkResult>(result);
     }
+
+    [Fact]
+    public void UpdateCity_ShouldReturnNoContent_WhenCityIsNotUpdated()
+    {
+        // Arrange
+        var cityDto = new CityDto { CityName = "City1" };
+        _mockUpdateCityInDbUseCase.Setup(x => x.Execute(cityDto)).Returns(false);
+
+        // Act
+        var result = _controller.UpdateCity(cityDto);
+
+        // Assert
+        Assert.IsType<NoContentResult>(result);
+    }
+
 }

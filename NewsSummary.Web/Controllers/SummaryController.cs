@@ -5,6 +5,7 @@ using NewsSummary.Core.Models.Forecast;
 using NewsSummary.Core.Models.Forecast.WeatherAPI;
 using NewsSummary.Core.Models.News;
 using NewsSummary.Core.Models.News.Mediastack;
+using NewsSummary.Web.Constants;
 
 namespace NewsSummary.Web.Controllers;
 
@@ -29,7 +30,7 @@ public class SummaryController : ControllerBase
 
     [HttpGet("GetForecast")]
     [ProducesResponseType(typeof(ForecastResponseDTO), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(void),StatusCodes.Status418ImATeapot)]
+    [ProducesResponseType(typeof(void), HttpConstants.DefaultErrorStatusCode)]
     public async Task<IActionResult> GetForecast(string city = "Calp", string language = "en")
     {
         var settings = new ForecastRequestSettings()
@@ -43,12 +44,12 @@ public class SummaryController : ControllerBase
         {
             return this.Ok(output.Value);
         }
-        return this.StatusCode(StatusCodes.Status418ImATeapot);   
+        return this.StatusCode(HttpConstants.DefaultErrorStatusCode);   
     }
 
     [HttpGet("GetNews")]
     [ProducesResponseType(typeof(NewsResponseDTO), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(void), StatusCodes.Status418ImATeapot)]
+    [ProducesResponseType(typeof(void), HttpConstants.DefaultErrorStatusCode)]
     public async Task<IActionResult> GetNews(string country = "ua")
     {
         var settings = new NewsRequestSettings()
@@ -61,8 +62,6 @@ public class SummaryController : ControllerBase
         {
             return this.Ok(output.Value);
         }
-        return this.StatusCode(StatusCodes.Status418ImATeapot);
+        return this.StatusCode(HttpConstants.DefaultErrorStatusCode);
     }
-
-
 }

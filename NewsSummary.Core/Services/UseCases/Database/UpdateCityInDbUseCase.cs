@@ -3,18 +3,18 @@ using NewsSummary.Core.Interfaces;
 using NewsSummary.Core.Interfaces.UseCases.Database;
 using NewsSummary.Core.Models;
 
-namespace NewsSummary.Core.Services.UseCases;
+namespace NewsSummary.Core.Services.UseCases.Database;
 
-public class UpdateCityInDbUseCase: IUpdateCityInDbUseCase
+public class UpdateCityInDbUseCase : IUpdateCityInDbUseCase
 {
     private readonly ICityRepository _cityRepository;
     public UpdateCityInDbUseCase(ICityRepository rep)
     {
-        this._cityRepository = rep;
+        _cityRepository = rep;
     }
 
-    public void Execute(CityDto cityInfo)
+    public bool Execute(CityDto cityInfo)
     {
-        _cityRepository.UpdateCity(cityInfo);
+        return _cityRepository.UpdateCity(cityInfo);
     }
 }

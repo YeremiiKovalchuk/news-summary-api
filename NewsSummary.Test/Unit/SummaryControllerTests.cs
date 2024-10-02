@@ -1,6 +1,4 @@
-﻿using System.Net;
-using System.Net.Http.Json;
-using System.Threading.Tasks;
+﻿using System.Net.Http.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Moq;
@@ -9,11 +7,11 @@ using NewsSummary.Core.Interfaces.UseCases;
 using NewsSummary.Web;
 using NewsSummary.Core.Models.Forecast.WeatherAPI;
 using NewsSummary.Core.Models.News.Mediastack;
-using Microsoft.AspNetCore.Hosting;
 using NewsSummary.Core.Models.Forecast;
 using NewsSummary.Core.Models.News;
 using NewsSummary.Core.Models;
 
+namespace NewsSummary.Test.Unit;
 public class SummaryControllerIntegrationTests : IClassFixture<WebApplicationFactory<Program>>
 {
     private readonly WebApplicationFactory<Program> _factory;
@@ -34,7 +32,7 @@ public class SummaryControllerIntegrationTests : IClassFixture<WebApplicationFac
         var forecastResponse = new ForecastResponseDTO
         {
             CityName = "Calp",
-            Forecasts = new List<CommonForecastEntry> { new CommonForecastEntry() { DtTxt = "2023-10-01", Temp = 22.5 } }
+            Forecasts = new List<CommonForecastEntry> { new() { DtTxt = "2023-10-01", Temp = 22.5 } }
         };
 
         _getForecastUseCaseMock.Setup(x => x.Execute(It.IsAny<ForecastRequestSettings>()))

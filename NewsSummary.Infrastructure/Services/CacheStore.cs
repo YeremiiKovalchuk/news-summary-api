@@ -39,6 +39,6 @@ public class CacheStore : ICacheStore
         var jsonData = JsonSerializer.Serialize(value);
 
         _database.StringSet(key, jsonData);
-        await _database.StringGetSetExpiryAsync(key, TimeSpan.FromHours(CacheConstants.AbsoluteExpirationHours));
+        await _database.StringGetSetExpiryAsync(key, CacheConstants.AbsoluteExpirationTime);
     }
 }

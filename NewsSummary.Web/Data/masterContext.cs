@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using NewsSummary.Core.Models;
+﻿using Microsoft.EntityFrameworkCore;
+
 
 namespace NewsSummary.Web.Data
 {
-    public partial class masterContext : DbContext
+    public partial class MasterContext : DbContext
     {
-        public masterContext()
+        public MasterContext()
         {
         }
 
-        public masterContext(DbContextOptions<masterContext> options)
+        public MasterContext(DbContextOptions<MasterContext> options)
             : base(options)
         {
         }

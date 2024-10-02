@@ -2,6 +2,7 @@
 using NewsSummary.Core.Interfaces.UseCases.Database;
 using NewsSummary.Core.Models;
 using NewsSummary.Core.Models.Forecast;
+using NewsSummary.Web.Constants;
 
 namespace NewsSummary.Web.Controllers;
 
@@ -22,65 +23,36 @@ public class DatabaseController : ControllerBase
         this._updateCityInDbUseCase = updateCityInDbUseCase;
     }
 
-
     [HttpGet("GetAllCities")]
     [ProducesResponseType(typeof(List<CityDto?>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
     public IActionResult GetAllCities()
     {
         var entries = this._getAllDatabaseEntriesUseCase.Execute();
-
         return entries == null? this.NoContent(): this.Ok(entries);
     }
 
     [HttpPost("AddNewCity")]
     [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(void), StatusCodes.Status418ImATeapot)]
+    [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
     public IActionResult AddNewCity([FromBody] CityDto city)
     {
-        try
-        {
-            this._addCityToDbUseCase.Execute(city);
-        }
-        catch (Exception e)
-        {
-            return this.StatusCode(418);
-            
-        }
-        return this.Ok();
+        return this._addCityToDbUseCase.Execute(city) ? this.Ok() : this.NoContent();
     }
 
     [HttpDelete("DeleteCity")]
     [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(void), StatusCodes.Status418ImATeapot)]
+    [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
     public IActionResult DeleteCity(string cityName)
     {
-        try
-        {
-            this._removeCityFromDbUseCase.Execute(cityName);
-        }
-        catch (Exception e)
-        {
-            return this.StatusCode(418);
-
-        }
-        return this.Ok();
+         return this._removeCityFromDbUseCase.Execute(cityName) ? this.Ok() : this.NoContent();
     }
 
     [HttpPut("UpdateCity")]
     [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(void), StatusCodes.Status418ImATeapot)]
+    [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
     public IActionResult UpdateCity([FromBody] CityDto city)
     {
-        try
-        {
-            this._updateCityInDbUseCase.Execute(city);
-        }
-        catch (Exception e)
-        {
-            return this.StatusCode(418);
-
-        }
-        return this.Ok();
+        return this._updateCityInDbUseCase.Execute(city) ? this.Ok() : this.NoContent();
     }
 }

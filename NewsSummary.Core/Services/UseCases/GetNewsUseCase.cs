@@ -57,7 +57,5 @@ public class GetNewsUseCase: IGetNewsUseCase
         }
 
         return result;
-
     }
-
 }

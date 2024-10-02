@@ -1,9 +1,8 @@
 ﻿using Moq.Protected;
 using Moq;
-using System;
-using MyHashTable.Tests.Unit;
-using System.Diagnostics;
-namespace MyHashTable.Tests.Extensions;
+using NewsSummary.Tests.Unit;
+
+namespace NewsSummary.Tests.Extensions;
 
 public static class Extensions
 {

@@ -1,14 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using NewsSummary.Core.Constants;
 using NewsSummary.Core.Interfaces;
 using NewsSummary.Core.Interfaces.UseCases;
 using NewsSummary.Core.Interfaces.UseCases.Database;
 using NewsSummary.Core.Models;
-using NewsSummary.Core.Models.Forecast.WeatherAPI;
 using NewsSummary.Core.Models.News.Mediastack;
 using System.Net.Http.Json;
-using System.Text.Json;
 
 namespace NewsSummary.Core.Services.Clients;
 

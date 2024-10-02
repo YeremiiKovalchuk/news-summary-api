@@ -35,7 +35,6 @@ public class GetForecastUseCase: IGetForecastUseCase
      
         return new Result<ForecastResponseDTO>()
         {
-            //Success = response.IsSuccessStatusCode,
             Success = resultUnmapped.Success,
             Value = resultMapped
         };
@@ -59,7 +58,5 @@ public class GetForecastUseCase: IGetForecastUseCase
         }
 
         return result;
-
     }
-
 }

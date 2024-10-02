@@ -4,9 +4,9 @@ namespace NewsSummary.Infrastructure.Constants;
 
 public static class CacheConstants
 {
-    public const int AbsoluteExpirationHours = 12;
+    public static readonly TimeSpan AbsoluteExpirationTime = TimeSpan.FromHours(12);
 
-    public static DistributedCacheEntryOptions CommonCacheOptions = new() { AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(AbsoluteExpirationHours) };
+    public static readonly DistributedCacheEntryOptions CommonCacheOptions = new() { AbsoluteExpirationRelativeToNow = AbsoluteExpirationTime };
 
     public const string NamePrefix = "SummaryAPI_";
 }

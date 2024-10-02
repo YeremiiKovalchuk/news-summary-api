@@ -2,9 +2,7 @@
 using Microsoft.Extensions.Logging;
 using NewsSummary.Core.Interfaces;
 using NewsSummary.Core.Models;
-using NewsSummary.Core.Models.Forecast.WeatherAPI;
 using NewsSummary.Infrastructure.Data;
-using System.Runtime;
 
 namespace NewsSummary.Infrastructure.Services;
 
@@ -21,8 +19,11 @@ public class CityRepository : ICityRepository
     {
         this._logger.LogDebug($"Trying to add city with name {cityInfo.CityName} to Db.");
         this._dbContext.Cities.Add(cityInfo);
-        this._dbContext.SaveChanges();
-        return true;
+        if (this._dbContext.SaveChanges() > 0)
+        {
+            return true;
+        }
+        return false;   
     }
 
     public List<CityDto?> GetAllCities()
@@ -45,8 +46,13 @@ public class CityRepository : ICityRepository
     public bool RemoveCity(string cityName)
     {
         this._logger.LogDebug($"Trying to remove city with name {cityName} from Db");
-        var deleteCity = new CityDto() { CityName = cityName };
-        this._dbContext.Cities.Remove(deleteCity);
+        var city = _dbContext.Cities.FirstOrDefault(c => c.CityName == cityName);
+        if (city == null)
+        { 
+            return false;
+        }
+
+        this._dbContext.Cities.Remove(city);
         this._dbContext.SaveChanges();
         return true;
     }
@@ -55,7 +61,10 @@ public class CityRepository : ICityRepository
     {
         this._logger.LogDebug($"Trying to update city with name {cityInfo.CityName} in Db");
         this._dbContext.Cities.Update(cityInfo);
-        this._dbContext.SaveChanges();
-        return true;
+        if (this._dbContext.SaveChanges() > 0)
+        {
+            return true;
+        }
+        return false;
     }
 }

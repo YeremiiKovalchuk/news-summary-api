@@ -2,5 +2,5 @@
 
 public interface IRemoveCityFromDbUseCase
 {
-    public void Execute(string cityName);
+    public bool Execute(string cityName);
 }

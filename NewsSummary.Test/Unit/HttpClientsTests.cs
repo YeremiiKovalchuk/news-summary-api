@@ -1,16 +1,11 @@
 ﻿using Moq;
 using Xunit;
-
 using System.Net;
-
-using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Microsoft.AspNetCore.Mvc.Testing;
 using NewsSummary.Test.Constants;
-using MyHashTable.Tests.Extensions;
-using NewsSummary.Core.Interfaces.UseCases;
-using NewsSummary.Core.Services.UseCases;
+using NewsSummary.Tests.Extensions;
 
-namespace MyHashTable.Tests.Unit;
+namespace NewsSummary.Tests.Unit;
 
 public class HttpClientTests : IClassFixture<WebApplicationFactory<Program>>
 {

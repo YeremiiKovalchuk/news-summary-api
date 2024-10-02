@@ -50,5 +50,4 @@ public static class ServiceCollectionExtensions
         services.AddDbContext<SummaryDBContext>(options => options.UseSqlServer(sqlConnectionString));
         services.AddTransient<ICityRepository, CityRepository>();
     }
-
 }
