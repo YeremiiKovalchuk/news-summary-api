@@ -1,9 +1,8 @@
 using NewsSummary.Core.Extensions;
-using NewsSummary.Core.Constants;
 using NewsSummary.Core.Models;
 using NewsSummary.Infrastructure.Extensions;
 using NewsSummary.Infrastructure.Models;
-using Microsoft.Extensions.Configuration;
+using NewsSummary.Web.Extensions;
 using System.ComponentModel.DataAnnotations;
 using NewsSummary.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -12,20 +11,16 @@ using NewsSummary.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers() //web
-.AddJsonOptions(options =>
-{
-    WebConstants.ApplyCommonSerializerOptions(options.JsonSerializerOptions);
-});
-
-builder.Services.AddDbContext<SummaryDBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("Database")));
-builder.Services.AddTransient<ICityRepository, CityRepository>();
+builder.Services.AddWebDefaults();
 
 builder.Services.AddEndpointsApiExplorer(); //web
 builder.Services.AddSwaggerGen(); //web
 
 builder.Services.AddCommonHttpClients();
 builder.Services.AddCommonUseCases();
+
+var sqlConnectionString = builder.Configuration.GetConnectionString("Database");
+builder.Services.AddDb(sqlConnectionString!);
 
 var redisSettings = builder.Configuration.GetSection("RedisRetryPolicy").Get<RedisRetryPolicy>();
 var validationResult = new List<ValidationResult>();
@@ -35,7 +30,7 @@ if (!Validator.TryValidateObject(redisSettings, new ValidationContext(redisSetti
     {
         Console.WriteLine(validation.ErrorMessage);
     }
-    return;
+    throw new ArgumentException("Invalid Redis parameters");
 }
 
 builder.Services.AddRedis(builder.Configuration.GetConnectionString("Redis")!, redisSettings);
@@ -44,16 +39,18 @@ builder.Services.AddCommonAutoMappers();
 builder.Services.AddOptions<ApiKeys>().Bind(builder.Configuration.GetSection("ApiKeys"));
 
 var app = builder.Build();
-if (app.Environment.IsDevelopment()) //web
+
+if (app.Environment.IsDevelopment()) 
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseHttpsRedirection(); //web
-app.UseAuthorization(); //web
-app.MapControllers(); //web
+
+app.UseHttpsRedirection(); 
+app.UseAuthorization(); 
+app.MapControllers(); 
 
 app.Run();
 
-
 public partial class Program { }
+

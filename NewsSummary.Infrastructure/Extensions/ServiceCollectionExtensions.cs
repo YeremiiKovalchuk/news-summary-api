@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using NewsSummary.Core.Interfaces;
+using NewsSummary.Infrastructure.Data;
 using NewsSummary.Infrastructure.Models;
 using NewsSummary.Infrastructure.Services;
 using NewsSummary.Infrastructure.Services.MappingProfiles;
@@ -40,6 +42,13 @@ public static class ServiceCollectionExtensions
     public static void AddCommonAutoMappers(this IServiceCollection services)
     {
         services.AddAutoMapper(typeof(ForecastWeatherApiMappingProfile));
+    }
+
+    public static void AddDb(this IServiceCollection services, string sqlConnectionString)
+    {
+
+        services.AddDbContext<SummaryDBContext>(options => options.UseSqlServer(sqlConnectionString));
+        services.AddTransient<ICityRepository, CityRepository>();
     }
 
 }
