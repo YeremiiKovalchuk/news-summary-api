@@ -1,22 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using NewsSummary.Core.Interfaces;
 using NewsSummary.Core.Interfaces.UseCases.Database;
 using NewsSummary.Core.Models;
 
 namespace NewsSummary.Core.Services.UseCases;
 
-public class GetAllDbEntriesUseCase: IGetAllDatabaseEntriesUseCase
+public class RemoveCityFromDbUseCase : IRemoveCityFromDbUseCase
 {
     private readonly ICityRepository _cityRepository;
-    public GetAllDbEntriesUseCase(ICityRepository rep)
+    public RemoveCityFromDbUseCase(ICityRepository rep, ILogger<GetAllDbEntriesUseCase> logger)
     {
         this._cityRepository = rep;
     }
 
-    public List<CityDto> Execute()
+    public void Execute(string cityName)
     {
-        return _cityRepository.GetAllCities();
+        _cityRepository.RemoveCity(cityName);
     }
-
 }

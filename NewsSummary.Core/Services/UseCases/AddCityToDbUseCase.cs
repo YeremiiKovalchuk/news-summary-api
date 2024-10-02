@@ -8,11 +8,9 @@ namespace NewsSummary.Core.Services.UseCases;
 public class AddCityToDbUseCase : IAddCityToDbUseCase
 {
     private readonly ICityRepository _cityRepository;
-    private readonly ILogger _logger;
-    public AddCityToDbUseCase(ICityRepository rep, ILogger<AddCityToDbUseCase> logger)
+    public AddCityToDbUseCase(ICityRepository rep)
     {
         this._cityRepository = rep;
-        this._logger = logger;
     }
 
     public void Execute(CityDto cityInfo)

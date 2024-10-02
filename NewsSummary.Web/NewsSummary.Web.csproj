@@ -20,7 +20,6 @@
   <ItemGroup>
     <ProjectReference Include="..\NewsSummary.Core\NewsSummary.Core.csproj" />
     <ProjectReference Include="..\NewsSummary.Infrastructure\NewsSummary.Infrastructure.csproj" />
-    <ProjectReference Include="..\NewsSummary.Test\NewsSummary.Test.csproj" />
   </ItemGroup>
 
 </Project>

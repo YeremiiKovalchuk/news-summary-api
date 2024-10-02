@@ -21,6 +21,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsSummary.Test", "NewsSummary.Test\NewsSummary.Test.csproj", "{EE0B3E06-86A8-408B-9F02-2516662CF0AD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CD5B65A2-12BF-46A1-989E-3A54BBB346D6} = {CD5B65A2-12BF-46A1-989E-3A54BBB346D6}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E3ED8215-359A-485E-BBFB-B013DDE022FF}"
 EndProject

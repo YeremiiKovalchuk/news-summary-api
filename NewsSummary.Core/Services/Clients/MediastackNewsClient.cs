@@ -41,7 +41,5 @@ public class MediastackNewsClient : INewsClient
             Value = news,
             Success = response.IsSuccessStatusCode
         };
-
-
     }
 }

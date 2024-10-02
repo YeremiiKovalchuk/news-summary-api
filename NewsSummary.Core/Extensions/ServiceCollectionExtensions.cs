@@ -33,5 +33,7 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<IGetAllDatabaseEntriesUseCase, GetAllDbEntriesUseCase>();
         services.AddScoped<IAddCityToDbUseCase, AddCityToDbUseCase>();
+        services.AddScoped<IRemoveCityFromDbUseCase, RemoveCityFromDbUseCase>();
+        services.AddScoped<IUpdateCityInDbUseCase, UpdateCityInDbUseCase>();
     }
 }

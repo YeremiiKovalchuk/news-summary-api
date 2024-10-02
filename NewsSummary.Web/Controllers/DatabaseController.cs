@@ -11,20 +11,26 @@ public class DatabaseController : ControllerBase
 {
     private readonly IGetAllDatabaseEntriesUseCase _getAllDatabaseEntriesUseCase;
     private readonly IAddCityToDbUseCase _addCityToDbUseCase;
+    private readonly IRemoveCityFromDbUseCase _removeCityFromDbUseCase;
+    private readonly IUpdateCityInDbUseCase _updateCityInDbUseCase;
 
-    public DatabaseController(IGetAllDatabaseEntriesUseCase getAllDatabaseEntriesUseCase, IAddCityToDbUseCase addCityToDbUseCase)
+    public DatabaseController(IGetAllDatabaseEntriesUseCase getAllDatabaseEntriesUseCase, IAddCityToDbUseCase addCityToDbUseCase, IRemoveCityFromDbUseCase removeCityFromDbUseCase, IUpdateCityInDbUseCase updateCityInDbUseCase)
     {
-        _getAllDatabaseEntriesUseCase = getAllDatabaseEntriesUseCase;
-        _addCityToDbUseCase = addCityToDbUseCase;
+        this._getAllDatabaseEntriesUseCase = getAllDatabaseEntriesUseCase;
+        this._addCityToDbUseCase = addCityToDbUseCase;
+        this._removeCityFromDbUseCase = removeCityFromDbUseCase;
+        this._updateCityInDbUseCase = updateCityInDbUseCase;
     }
 
 
     [HttpGet("GetAllCities")]
     [ProducesResponseType(typeof(List<CityDto?>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(void), StatusCodes.Status418ImATeapot)]
+    [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
     public IActionResult GetAllCities()
     {
-        return this.Ok(this._getAllDatabaseEntriesUseCase.Execute());
+        var entries = this._getAllDatabaseEntriesUseCase.Execute();
+
+        return entries == null? this.NoContent(): this.Ok(entries);
     }
 
     [HttpPost("AddNewCity")]
@@ -40,6 +46,40 @@ public class DatabaseController : ControllerBase
         {
             return this.StatusCode(418);
             
+        }
+        return this.Ok();
+    }
+
+    [HttpDelete("DeleteCity")]
+    [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(void), StatusCodes.Status418ImATeapot)]
+    public IActionResult DeleteCity(string cityName)
+    {
+        try
+        {
+            this._removeCityFromDbUseCase.Execute(cityName);
+        }
+        catch (Exception e)
+        {
+            return this.StatusCode(418);
+
+        }
+        return this.Ok();
+    }
+
+    [HttpPut("UpdateCity")]
+    [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(void), StatusCodes.Status418ImATeapot)]
+    public IActionResult UpdateCity([FromBody] CityDto city)
+    {
+        try
+        {
+            this._updateCityInDbUseCase.Execute(city);
+        }
+        catch (Exception e)
+        {
+            return this.StatusCode(418);
+
         }
         return this.Ok();
     }
