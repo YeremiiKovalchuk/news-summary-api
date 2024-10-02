@@ -2,7 +2,7 @@
 using NewsSummary.Core.Models.Forecast;
 using NewsSummary.Core.Models;
 
-namespace NewsSummary.Core.Interfaces;
+namespace NewsSummary.Core.Interfaces.UseCases;
 
 public interface IGetForecastUseCase
 {

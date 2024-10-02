@@ -1,4 +1,4 @@
-﻿namespace NewsSummary.Core.Interfaces;
+﻿namespace NewsSummary.Core.Interfaces.UseCases;
 
 public interface IGetApiKeyUseCase
 {

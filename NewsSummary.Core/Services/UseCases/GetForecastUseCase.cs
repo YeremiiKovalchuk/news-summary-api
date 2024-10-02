@@ -2,19 +2,20 @@
 using Microsoft.Extensions.Logging;
 using NewsSummary.Core.Constants;
 using NewsSummary.Core.Interfaces;
+using NewsSummary.Core.Interfaces.UseCases;
 using NewsSummary.Core.Models;
 using NewsSummary.Core.Models.Forecast;
 using NewsSummary.Core.Models.Forecast.WeatherAPI;
 
 namespace NewsSummary.Core.Services.UseCases;
 
-public class GetForecast: IGetForecastUseCase
+public class GetForecastUseCase: IGetForecastUseCase
 {
     private readonly ILogger _logger;
     private readonly IForecastClient _forecastClient;
-    private readonly IUniversalCache _cache;
+    private readonly ICacheStore _cache;
     private readonly IMapper _mapper;
-    public GetForecast(IForecastClient forecastClient, IUniversalCache cache, IMapper mapper, ILogger<GetForecast> logger)
+    public GetForecastUseCase(IForecastClient forecastClient, ICacheStore cache, IMapper mapper, ILogger<GetForecastUseCase> logger)
     {
         this._forecastClient = forecastClient;
         this._cache = cache;

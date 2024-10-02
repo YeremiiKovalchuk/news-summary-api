@@ -5,9 +5,14 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>NewsSummary.Web</RootNamespace>
+    <UserSecretsId>b2259efe-9166-4d9c-95f0-7c0bfc9b8b59</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.33">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="StackExchange.Redis" Version="2.8.16" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
@@ -15,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\NewsSummary.Core\NewsSummary.Core.csproj" />
     <ProjectReference Include="..\NewsSummary.Infrastructure\NewsSummary.Infrastructure.csproj" />
+    <ProjectReference Include="..\NewsSummary.Test\NewsSummary.Test.csproj" />
   </ItemGroup>
 
 </Project>

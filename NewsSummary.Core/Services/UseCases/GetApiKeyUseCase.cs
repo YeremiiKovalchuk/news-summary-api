@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
-using NewsSummary.Core.Interfaces;
+using NewsSummary.Core.Interfaces.UseCases;
 using NewsSummary.Core.Models;
 
 namespace NewsSummary.Core.Services.UseCases;

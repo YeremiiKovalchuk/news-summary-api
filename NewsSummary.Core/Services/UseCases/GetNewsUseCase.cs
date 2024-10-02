@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using NewsSummary.Core.Constants;
 using NewsSummary.Core.Interfaces;
+using NewsSummary.Core.Interfaces.UseCases;
 using NewsSummary.Core.Models;
 using NewsSummary.Core.Models.Forecast.WeatherAPI;
 using NewsSummary.Core.Models.News;
@@ -12,10 +13,10 @@ namespace NewsSummary.Core.Services.UseCases;
 public class GetNewsUseCase: IGetNewsUseCase
 {
     private readonly ILogger _logger;
-    private readonly IUniversalCache _cache;
+    private readonly ICacheStore _cache;
     private readonly INewsClient _newsClient;
     private readonly IMapper _mapper;
-    public GetNewsUseCase(INewsClient newsClient, IUniversalCache cache, IMapper mapper, ILogger<GetNewsUseCase> logger)
+    public GetNewsUseCase(INewsClient newsClient, ICacheStore cache, IMapper mapper, ILogger<GetNewsUseCase> logger)
     {
         this._newsClient = newsClient;
         this._cache = cache;

@@ -7,4 +7,6 @@ public static class CacheConstants
     public const int AbsoluteExpirationHours = 12;
 
     public static DistributedCacheEntryOptions CommonCacheOptions = new() { AbsoluteExpirationRelativeToNow = TimeSpan.FromHours(AbsoluteExpirationHours) };
+
+    public const string NamePrefix = "SummaryAPI_";
 }
